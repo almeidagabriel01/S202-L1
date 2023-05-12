@@ -1,0 +1,21 @@
+
+Agregações:
+1- MATCH (ah:AccountHolder)-[:HAS_ADDRESS]->(ad:Address) RETURN ad.city, count(ah)
+2- MATCH (i:IP)-[:LOCATED_IN]->(s:State) RETURN s.name, count(i) as ip_count
+3- MATCH (a:AccountHolder)-[:HAS_CREDITCARD]->(c:CreditCard) RETURN a.firstName, avg(c.limit) as avg_limitCredit ORDER BY avg_limitCredit DESC
+4- MATCH (p:Purchase)-[:DELIVERED_AT]->(d:DeliveryAddress) RETURN d.city, count(p) as purchase_count ORDER BY purchase_count DESC
+5- MATCH (a:AccountHolder)-[:HAS_CREDITCARD]->(c:CreditCard) RETURN a.firstName, max(c.limit) as max_limitCredit ORDER BY avg_limitCredit DESC
+
+Funções matemáticas:
+1- MATCH (a:AccountHolder)-[:HAS_CREDITCARD]->(c:CreditCard) WHERE c.balance > 3500 RETURN a.firstName, ROUND(AVG(c.balance)) AS avg_balance
+2- MATCH (a:AccountHolder)-[:HAS_BANKACCOUNT]->(b:BankAccount) RETURN a.firstName, ROUND(MAX(b.balance)) AS max_balance ORDER BY max_balance DESC
+3- MATCH (b:BankCard) WHERE b.balance > 1000 RETURN b.accountNumber ORDER BY RAND() LIMIT 1
+4- MATCH (b:BankCard) WHERE CEIL(b.balance) > 800 RETURN b.accountNumber, b.balance ORDER BY b.balance
+5- MATCH (m:MoneyTransfer) WHERE ROUND(m.amount, 1, 'HALF_EVEN') < 700 RETURN m.transactionDate, m.amount ORDER BY m.amount DESC
+
+Funções de String:
+1- MATCH (a:AccountHolder) RETURN SUBSTRING(a.birthDate, 0, 4) AS year_birthDate
+2- MATCH (c:CreditCard) RETURN LEFT(c.expirationDate, 2) AS month_expiration
+3- MATCH (l:Login) RETURN TOUPPER(l.userid) AS userid
+4- MATCH (d:DeliveryAddress) RETURN TOLOWER(d.city)
+5- MATCH (m:MoneyTransfer) RETURN RIGHT(m.transactionDate, 5) AS transactionDate

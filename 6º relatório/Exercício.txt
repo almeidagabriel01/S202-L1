@@ -1,0 +1,39 @@
+1- 
+a) match(n) return n
+b) match(n:Game) where n.ano > 2012 return n
+c) match(n:Game) where n.genero = "Terror" return n
+d) match (j:Jurado)-[jogou:JOGOU]->(g:Game) where jogou.nota >= 7 return g.titulo
+
+2-
+a) 
+CREATE(g:Game{titulo:'Fortnite', genero:'Battle Royale', ano:'2017'});
+CREATE(g:Game{titulo:'Counter Strike Global Offensive', genero:'Shooter', ano:'2012'});
+CREATE(g:Game{titulo:'Stardew Valley', genero:'RPG', ano:'2016'});
+CREATE(g:Game{titulo:'Grand Theft Auto V', genero:'Ação', ano:'2013'});
+
+b)
+CREATE(j:Jurado{nome:'Gabriel'});
+CREATE(j:Jurado{nome:'Pedro'});
+CREATE(j:Jurado{nome:'Lucas'});
+
+c)
+MATCH(j:Jurado{nome:'Gabriel'}),(g:Game{titulo:'Counter Strike Global Offensive'})
+CREATE(j)-[:JOGOU{nota:9, horas: 3000}]->(g);
+
+MATCH(j:Jurado{nome:'Gabriel'}),(g:Game{titulo:'Stardew Valley'})
+CREATE(j)-[:JOGOU{nota:6, horas: 150}]->(g);
+
+MATCH(j:Jurado{nome:'Gabriel'}),(g:Game{titulo:'Grand Theft Auto V'})
+CREATE(j)-[:JOGOU{nota:9, horas: 600}]->(g);
+
+MATCH(j:Jurado{nome:'Pedro'}),(g:Game{titulo:'Fortnite'})
+CREATE(j)-[:JOGOU{nota:7, horas: 1000}]->(g);
+
+MATCH(j:Jurado{nome:'Pedro'}),(g:Game{titulo:'Counter Strike Global Offensive'})
+CREATE(j)-[:JOGOU{nota:8, horas: 400}]->(g);
+
+MATCH(j:Jurado{nome:'Lucas'}),(g:Game{titulo:'Grand Theft Auto V'})
+CREATE(j)-[:JOGOU{nota:8, horas: 500}]->(g);
+
+MATCH(j:Jurado{nome:'Lucas'}),(g:Game{titulo:'Fortnite'})
+CREATE(j)-[:JOGOU{nota:8, horas: 1000}]->(g);
